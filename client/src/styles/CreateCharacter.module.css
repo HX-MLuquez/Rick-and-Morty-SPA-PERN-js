@@ -1,0 +1,17 @@
+.container {
+
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+    margin: 40px 200px;
+    padding: 20px 40px;
+    border-radius: 3px;
+    border: 1px rgb(1, 126, 1) solid;
+    background-color: rgb(210, 241, 179);
+    text-align: center;
+}
+.container input {
+ margin: 4px 4px;
+}

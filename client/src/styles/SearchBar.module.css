@@ -1,0 +1,26 @@
+.search {
+  margin: 8px;
+  padding: 8px;
+}
+.search button {
+  border: 1px solid rgb(201, 246, 157);
+  border-radius: 4px;
+  padding: 6px 16px;
+  margin: 4px;
+  margin-right: 8px;
+  background-color: rgb(110, 237, 165);
+  cursor: pointer;
+  font-size: 14px;
+}
+.search button:hover {
+  border: 1px solid rgb(248, 166, 58);
+  color: rgb(15, 41, 125);
+  background-color: rgb(188, 239, 145);
+}
+.search input{
+  margin-right: 8px;
+}
+.search label{
+  font-weight: bold;
+  font-size: 0.9em;
+}

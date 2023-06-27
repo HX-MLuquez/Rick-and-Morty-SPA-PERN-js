@@ -1,0 +1,30 @@
+.detail {
+  display: flex;
+  margin: 60px 280px;
+  padding: 28px 20px;
+  justify-content: center;
+  align-items: center;
+  color: rgb(32, 8, 56);
+  background-color: rgb(225, 225, 234);
+  border-radius: 40px;
+  border: 1px rebeccapurple solid;
+}
+.detail:hover {
+  background-color: rgb(211, 211, 245);
+}
+
+.text {
+  margin: 8px;
+  padding: 8px;
+}
+.img{
+    width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+.img img {
+  border-radius: 4px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}

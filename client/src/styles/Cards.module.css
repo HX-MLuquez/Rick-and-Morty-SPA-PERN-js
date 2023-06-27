@@ -1,0 +1,35 @@
+.cards {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-content: space-around;
+  justify-items: center;
+  padding: 2px 40px;
+  margin: 20px 40px;
+}
+.cards nav {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: normal;
+  /* justify-content: space-between; */
+  align-items: stretch;
+  background-color: rgb(193, 221, 235);
+  border-radius: 4px;
+  margin: 4px 4px;
+  padding: 14px 8px;
+}
+.cards select{
+    border-radius: 4px;
+    background-color: rgb(199, 226, 240);
+    margin: 4px 4px;
+    margin-bottom: 40px;
+    padding: 4px 4px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 825px) {
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
