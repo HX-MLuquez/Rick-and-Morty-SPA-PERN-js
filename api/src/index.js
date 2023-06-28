@@ -11,7 +11,7 @@ http
     const part1 = url[1];
     const part2 = url[2];
     const id = url[3];
-   
+
     if (part1 === "rickandmorty" && part2 === "characters") {
       return res
         .writeHead(200, { "Content-type": "application/json" })
@@ -20,7 +20,7 @@ http
     if (part1 === "rickandmorty" && part2 === "character") {
       return getCharacterId(req, res, id);
     }
-    if (req.url === "/"){
+    if (req.url === "/") {
       return res
         .writeHead(200, { "Content-type": "text/plain" })
         .end("Server RICK");
