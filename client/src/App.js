@@ -44,11 +44,10 @@ export default function App() {
   // console.log(characters)
   const { characters } = useSelector((state) => state);
   function onSearch(id) {
-    axios(`https://rickandmortyapi.com/api/character/${id}`).then(
+    axios(`http://localhost:5040/rickandmorty/character/${id}`).then(
+      // axios("http://localhost:1222/")
       ({ data }) => {
         if (data.name) {
-          const char = characters.find((ch) => ch.id === Number(id));
-          if (char) return alert(`Ese characters id: ${id}, ya existe`);
           dispatch(addChar(data));
         } else {
           window.alert("¡No hay personajes con este ID!");
@@ -65,25 +64,11 @@ export default function App() {
   // console.log(":::::", pathname.split("/"));
 
   useEffect(() => {
-    const requests = [];
-    for (let num = 22; num < 24; num++) {
-      requests.push(
-        axios.get(`https://rickandmortyapi.com/api/character?page=${num}`)
-      );
-    }
-    Promise.all(requests)
-      .then((results) => {
-        // console.log(":::", results);
-        let newCharacters = [];
-        results.map(
-          (chars) => (newCharacters = [...newCharacters, ...chars.data.results])
-        );
-        // console.log(":::", newCharacters);
-        dispatch(addChar([...newCharacters]));
-        //TODO: para cuando llevemos los characters al store (state global) de redux
-        // dispatch(addCharacter(newCharacters))
-      })
-      .catch((error) => {});
+    axios
+      .get(`http://localhost:5040/rickandmorty/characters`)
+      .then((result) => {
+        dispatch(addChar(result.data));
+      });
   }, []);
 
   return (

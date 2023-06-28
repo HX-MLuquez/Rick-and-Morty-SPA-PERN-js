@@ -12,15 +12,6 @@ export default function Detail() {
   // console.log("--->", id)
   //TODO: MOUNT <-> upDate ID
   useEffect(() => {
-    // axios(`https://rickandmortyapi.com/api/character/${id}`).then(
-    //   ({ data }) => {
-    //     if (data.name) {
-    //       setCharacter(data);
-    //     } else {
-    //       window.alert("No hay personajes con ese ID");
-    //     }
-    //   }
-    // );
     const char = characters?.find((ch) => ch.id === Number(id));
     if (char) setCharacter(char);
     else window.alert("No hay personajes con ese ID");

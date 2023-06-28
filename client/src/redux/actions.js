@@ -1,9 +1,19 @@
-import { ADD_FAV, REMOVE_FAV, ADD_CHAR, REMOVE_CHAR, FILTER, RESET, FILTER_A_Z,PREV, NEXT, CREATE_CHAR } from "./actionType";
+import {RESET_PAGE, RESET_CHARACTERS, ADD_FAV, REMOVE_FAV, ADD_CHAR, REMOVE_CHAR, FILTER, RESET, FILTER_A_Z,PREV, NEXT, CREATE_CHAR } from "./actionType";
 
 export function addChar(char) {
   return {
     type: ADD_CHAR,
     payload: char,
+  };
+}
+export function resetPage() {
+  return {
+    type: RESET_PAGE,
+  };
+}
+export function resetCharacters() {
+  return {
+    type: RESET_CHARACTERS,
   };
 }
 export function removeChar(id) {

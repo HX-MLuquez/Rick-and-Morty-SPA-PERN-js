@@ -9,9 +9,12 @@ import {
   PREV,
   NEXT,
   CREATE_CHAR,
+  RESET_CHARACTERS,
+  RESET_PAGE,
 } from "./actionType";
 
 const initialState = {
+  charactersOrigin: [],
   characters: [],
   //TODO: para agregar o remover trabajamos en ambos (allFavorites, myFavorites)
   allFavorites: [], // original de myFavorites
@@ -26,13 +29,13 @@ export default function reducer(state = initialState, { type, payload }) {
       if (Array.isArray(payload)) {
         return {
           ...state,
-          characters: [...payload],
+          characters: [...payload], // characters: [payload, ...state.characters],
+          charactersOrigin: [...payload],
         };
       }
-
       return {
         ...state,
-        characters: [payload, ...state.characters],
+        characters: [payload],
       };
     case REMOVE_CHAR:
       const newCharacters = state.characters.filter((ch) => {
@@ -41,6 +44,18 @@ export default function reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         characters: newCharacters,
+      };
+    case RESET_CHARACTERS:
+      //console.log()
+      return {
+        ...state,
+        characters: [...state.charactersOrigin],
+      };
+    case RESET_PAGE:
+      //console.log()
+      return {
+        ...state,
+        numPage: 1,
       };
     case ADD_FAV:
       return {

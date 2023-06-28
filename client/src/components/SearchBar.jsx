@@ -1,7 +1,12 @@
 import { useState } from "react";
 import style from "../styles/SearchBar.module.css";
+import { useDispatch } from "react-redux";
+import { resetPage } from "../redux/actions";
+
+
 export default function SearchBar({ onSearch }) {
   const [id, setId] = useState("");
+  const dispatch = useDispatch()
 
   //  <input type="search" onChange={handleChange}/>
   const handleChange = (event) => {
@@ -12,12 +17,15 @@ export default function SearchBar({ onSearch }) {
   };
   const add = () => {
     onSearch(id);
+    dispatch(resetPage())
     setId("");
   };
   const randomChar = () => {
     const numRan = Math.floor(Math.random() * 825) + 1;
     onSearch(numRan);
   };
+
+  
   return (
     // console.log("id--->", id),
     <div className={style.search}>
@@ -29,7 +37,7 @@ export default function SearchBar({ onSearch }) {
         name="id"
         placeholder="insert id ..."
       />
-      <button onClick={add}>Agregar</button>
+      <button onClick={add}>Search</button>
       <button onClick={randomChar}>Random Character</button>
     </div>
   );

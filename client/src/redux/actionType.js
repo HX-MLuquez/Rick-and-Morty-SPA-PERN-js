@@ -12,7 +12,9 @@ export const NEXT = "NEXT"
 
 export const CREATE_CHAR = "CREATE_CHAR"
 
+export const RESET_CHARACTERS = "RESET_CHARACTERS"
 
+export const RESET_PAGE = "RESET_PAGE"
 /*
 addFav: esta función recibe un personaje por parámetro. 
 Deberás retornar una action con el type igual a "ADD_FAV", 
