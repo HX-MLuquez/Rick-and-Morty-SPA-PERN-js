@@ -11,7 +11,7 @@ http
     const part1 = url[1];
     const part2 = url[2];
     const id = url[3];
-
+   
     if (part1 === "rickandmorty" && part2 === "characters") {
       return res
         .writeHead(200, { "Content-type": "application/json" })
