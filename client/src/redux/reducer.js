@@ -36,14 +36,17 @@ export default function reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         characters: [payload],
+        // characters: [payload,...state.charactersOrigin],
+        // charactersOrigin: [payload,...state.charactersOrigin],
       };
     case REMOVE_CHAR:
-      const newCharacters = state.characters.filter((ch) => {
+      const newCharacters = state.charactersOrigin.filter((ch) => {
         return ch.id !== payload;
       });
       return {
         ...state,
         characters: newCharacters,
+        charactersOrigin: newCharacters,
       };
     case RESET_CHARACTERS:
       //console.log()
@@ -60,8 +63,8 @@ export default function reducer(state = initialState, { type, payload }) {
     case ADD_FAV:
       return {
         ...state,
-        myFavorites: [payload, ...state.myFavorites],
-        allFavorites: [payload, ...state.myFavorites],
+        myFavorites: payload,
+        allFavorites: payload,
       };
     case CREATE_CHAR:
       return {
@@ -69,13 +72,10 @@ export default function reducer(state = initialState, { type, payload }) {
         characters: [payload, ...state.characters],
       };
     case REMOVE_FAV:
-      const newFavorites = state.myFavorites.filter((ch) => {
-        return ch.id !== payload;
-      });
       return {
         ...state,
-        myFavorites: newFavorites,
-        allFavorites: newFavorites,
+        myFavorites: payload,
+        allFavorites: payload,
       };
     case FILTER:
       const newFilter = state.allFavorites.filter(

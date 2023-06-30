@@ -65,7 +65,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5040/rickandmorty/characters`)
+      .get(`http://localhost:5040/rickandmorty/allcharacters`)
       .then((result) => {
         dispatch(addChar(result.data));
       });
