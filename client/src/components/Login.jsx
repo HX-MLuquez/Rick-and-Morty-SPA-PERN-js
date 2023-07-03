@@ -98,9 +98,9 @@ export default function Login({ login }) {
           {Object.keys(inputsErrors).length === 0 ? (
             <button type="submit">Ingresar</button>
           ) : null}
-          {/* <Link to="/home">
+          <Link to="/home">
             <button>Ingresar</button>
-          </Link> */}
+          </Link>
         </form>
       </div>
     )

@@ -13,7 +13,13 @@ import ErrorNotFound from "./components/ErrorNotFound";
 import Favorites from "./components/Favorites";
 
 import { connect, useDispatch, useSelector } from "react-redux";
-import { addFav, removeFav, searchChar, removeChar, addChar } from "./redux/actions";
+import {
+  addFav,
+  removeFav,
+  searchChar,
+  removeChar,
+  addChar,
+} from "./redux/actions";
 import CreateCharacter from "./components/CreateCharacter";
 
 export default function App() {
@@ -46,8 +52,8 @@ export default function App() {
       .get(`${URL}/login?password=1234&email=1234`)
       .then(({ data }) => {
         if (!data.access) {
-          setAccess(false);
-          navigate("/");
+          // setAccess(false);
+          // navigate("/");
         }
       })
       .catch((error) => {
@@ -55,9 +61,9 @@ export default function App() {
       });
   }
 
-  useEffect(() => {
-    !access && navigate("/");
-  }, [access]);
+  // useEffect(() => {
+  //   !access && navigate("/");
+  // }, [access]);
 
   // const [characters, setCharacters] = useState([]);
   // console.log(characters)
@@ -88,6 +94,10 @@ export default function App() {
       .then((result) => {
         dispatch(addChar(result.data));
       });
+  }, []);
+
+  useEffect(() => {
+    dispatch(addFav({id:"RELOAD"}));
   }, []);
 
   return (
