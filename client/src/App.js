@@ -13,32 +13,51 @@ import ErrorNotFound from "./components/ErrorNotFound";
 import Favorites from "./components/Favorites";
 
 import { connect, useDispatch, useSelector } from "react-redux";
-import { addFav, removeFav, addChar, removeChar } from "./redux/actions";
+import { addFav, removeFav, searchChar, removeChar, addChar } from "./redux/actions";
 import CreateCharacter from "./components/CreateCharacter";
 
 export default function App() {
   const navigate = useNavigate();
   const [access, setAccess] = useState(false);
-  const EMAIL = "eje@gmail.com";
-  const PASSWORD = "@123QWEasd";
+  // const EMAIL = "eje@gmail.com";
+  // const PASSWORD = "@123QWEasd";
 
   const dispatch = useDispatch();
+  const URL = "http://localhost:5040/rickandmorty";
 
   function login(inputs) {
-    if (inputs.password === PASSWORD && inputs.email === EMAIL) {
-      setAccess(true);
-      return navigate("/home");
-    }
-    return alert("no es el usuario");
+    axios
+      .get(`${URL}/login?password=${inputs.password}&email=${inputs.email}`)
+      .then(({ data }) => {
+        if (data.access) {
+          setAccess(true);
+          navigate("/home");
+          return alert("bienvenidos!!!");
+        } else {
+          return alert("no es el usuario");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
+  function logout() {
+    axios
+      .get(`${URL}/login?password=1234&email=1234`)
+      .then(({ data }) => {
+        if (!data.access) {
+          setAccess(false);
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   useEffect(() => {
     !access && navigate("/");
   }, [access]);
-
-  function logout() {
-    setAccess(false);
-    navigate("/");
-  }
 
   // const [characters, setCharacters] = useState([]);
   // console.log(characters)
@@ -48,7 +67,7 @@ export default function App() {
       // axios("http://localhost:1222/")
       ({ data }) => {
         if (data.name) {
-          dispatch(addChar(data));
+          dispatch(searchChar(data));
         } else {
           window.alert("¡No hay personajes con este ID!");
         }

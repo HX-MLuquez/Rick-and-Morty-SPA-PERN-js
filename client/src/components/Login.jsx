@@ -17,7 +17,7 @@ export default function Login({ login }) {
     password: "",
   });
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const validate = (inputs) => {
     const errors = {};
@@ -51,17 +51,18 @@ export default function Login({ login }) {
     // console.log("::::aux::", inputsErrors)
     if (aux.length === 0) {
       //TODO: tomá los inputs envialos a POST
-      setInputs({
-        email: "",
-        password: "",
-      });
+     
       setInputsErrors({
         email: "",
         password: "",
       });
       login(inputs);
+      setInputs({
+        email: "",
+        password: "",
+      });
 
-      // navigate("/home");
+      navigate("/home");
     } else {
       return alert("Error");
     }
@@ -97,9 +98,9 @@ export default function Login({ login }) {
           {Object.keys(inputsErrors).length === 0 ? (
             <button type="submit">Ingresar</button>
           ) : null}
-
-          <Link to="/home">
-          <button>Ingresar</button></Link>
+          {/* <Link to="/home">
+            <button>Ingresar</button>
+          </Link> */}
         </form>
       </div>
     )

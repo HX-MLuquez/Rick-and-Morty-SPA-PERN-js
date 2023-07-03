@@ -11,6 +11,7 @@ import {
   CREATE_CHAR,
   RESET_CHARACTERS,
   RESET_PAGE,
+  SEARCH_CHAR,
 } from "./actionType";
 
 const initialState = {
@@ -25,6 +26,13 @@ const initialState = {
 
 export default function reducer(state = initialState, { type, payload }) {
   switch (type) {
+    case SEARCH_CHAR:
+      return {
+        ...state,
+        characters: [payload],
+        // characters: [payload,...state.charactersOrigin],
+        // charactersOrigin: [payload,...state.charactersOrigin],
+      };
     case ADD_CHAR:
       if (Array.isArray(payload)) {
         return {
@@ -35,9 +43,8 @@ export default function reducer(state = initialState, { type, payload }) {
       }
       return {
         ...state,
-        characters: [payload],
-        // characters: [payload,...state.charactersOrigin],
-        // charactersOrigin: [payload,...state.charactersOrigin],
+        characters: [payload,...state.charactersOrigin],
+        charactersOrigin: [payload,...state.charactersOrigin],
       };
     case REMOVE_CHAR:
       const newCharacters = state.charactersOrigin.filter((ch) => {
@@ -69,7 +76,8 @@ export default function reducer(state = initialState, { type, payload }) {
     case CREATE_CHAR:
       return {
         ...state,
-        characters: [payload, ...state.characters],
+        characters: [payload, ...state.charactersOrigin],
+        charactersOrigin: [payload, ...state.charactersOrigin],
       };
     case REMOVE_FAV:
       return {

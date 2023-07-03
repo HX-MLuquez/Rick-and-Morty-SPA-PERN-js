@@ -15,6 +15,8 @@ export const CREATE_CHAR = "CREATE_CHAR"
 export const RESET_CHARACTERS = "RESET_CHARACTERS"
 
 export const RESET_PAGE = "RESET_PAGE"
+export const SEARCH_CHAR = "SEARCH_CHAR"
+
 
 
 /*

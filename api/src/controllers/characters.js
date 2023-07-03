@@ -20,9 +20,14 @@ const login = function (req, res) {
   if (password === PASSWORD_USER && email === EMAIL_USER) {
     res.status(STATUS_OK).json({ access: true });
   } else {
-    res.status(STATUS_ERROR).json({ access: false });
+    res.status(204).json({ access: false });
   }
 };
+/*
+-> password -> token AXWE234 (vto 10 min)
+
+Front <- token -> cockies 
+*/
 
 const getCharacterId = function (req, res) {
   console.log("in char route");

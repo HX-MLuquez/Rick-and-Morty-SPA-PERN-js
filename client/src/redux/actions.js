@@ -11,8 +11,16 @@ import {
   PREV,
   NEXT,
   CREATE_CHAR,
+  SEARCH_CHAR
 } from "./actionType";
 import axios from "axios";
+
+export function searchChar(char) {
+  return {
+    type: SEARCH_CHAR,
+    payload: char,
+  };
+}
 
 export function addChar(char) {
   return {
