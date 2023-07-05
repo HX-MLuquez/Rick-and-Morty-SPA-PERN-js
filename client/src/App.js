@@ -31,34 +31,33 @@ export default function App() {
   const dispatch = useDispatch();
   const URL = "http://localhost:5040/rickandmorty";
 
-  function login(inputs) {
-    axios
-      .get(`${URL}/login?password=${inputs.password}&email=${inputs.email}`)
-      .then(({ data }) => {
-        if (data.access) {
-          setAccess(true);
-          navigate("/home");
-          return alert("bienvenidos!!!");
-        } else {
-          return alert("no es el usuario");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async function login(inputs) {
+    try {
+      const { data } = await axios.get(
+        `${URL}/login?password=${inputs.password}&email=${inputs.email}`
+      );
+      if (data.access) {
+        setAccess(true);
+        navigate("/home");
+        return alert("bienvenidos!!!");
+      } else {
+        return alert("no es el usuario");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
-  function logout() {
-    axios
-      .get(`${URL}/login?password=1234&email=1234`)
-      .then(({ data }) => {
-        if (!data.access) {
-          // setAccess(false);
-          // navigate("/");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
+  async function logout() {
+    try {
+      const { data } = await axios.get(`${URL}/login?password=1234&email=1234`);
+      if (!data.access) {
+        // setAccess(false);
+        // navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // useEffect(() => {
@@ -68,18 +67,22 @@ export default function App() {
   // const [characters, setCharacters] = useState([]);
   // console.log(characters)
   const { characters } = useSelector((state) => state);
-  function onSearch(id) {
-    axios(`http://localhost:5040/rickandmorty/character/${id}`).then(
-      // axios("http://localhost:1222/")
-      ({ data }) => {
-        if (data.name) {
-          dispatch(searchChar(data));
-        } else {
-          window.alert("¡No hay personajes con este ID!");
-        }
+
+  async function onSearch(id) {
+    try {
+      const { data } = await axios(
+        `http://localhost:5040/rickandmorty/character/${id}`
+      );
+      if (data.name) {
+        dispatch(searchChar(data));
+      } else {
+        window.alert("¡No hay personajes con este ID!");
       }
-    );
+    } catch (error) {
+      console.log(error);
+    }
   }
+
   function onClose(id) {
     dispatch(removeChar(Number(id)));
     dispatch(removeFav(Number(id)));
@@ -89,15 +92,22 @@ export default function App() {
   // console.log(":::::", pathname.split("/"));
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5040/rickandmorty/allcharacters`)
-      .then((result) => {
-        dispatch(addChar(result.data));
-      });
+    //* en el useEffect dentro de la function que pasamos por cb podemos crear una function async
+    async function inEffect() {
+      try {
+        const { data } = await axios.get(
+          `http://localhost:5040/rickandmorty/allcharacters`
+        );
+        dispatch(addChar(data));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    inEffect();
   }, []);
 
   useEffect(() => {
-    dispatch(addFav({id:"RELOAD"}));
+    dispatch(addFav({ id: "RELOAD" }));
   }, []);
 
   return (

@@ -11,7 +11,7 @@ import {
   PREV,
   NEXT,
   CREATE_CHAR,
-  SEARCH_CHAR
+  SEARCH_CHAR,
 } from "./actionType";
 import axios from "axios";
 
@@ -58,29 +58,38 @@ export function removeChar(id) {
 }
 // http://localhost:5040/rickandmorty/favorite/fav   ${id}
 export function addFav(char) {
-  return function (dispatch) {
-    axios
-      .post(`http://localhost:5040/rickandmorty/favorite/fav`, char)
-      .then(({ data }) => {
-        return dispatch({
-          type: ADD_FAV,
-          payload: data,
-        });
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:5040/rickandmorty/favorite/fav`,
+        char
+      );
+      return dispatch({
+        type: ADD_FAV,
+        payload: data,
       });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
+
 export function removeFav(id) {
-  return function (dispatch) {
-    axios
-      .delete(`http://localhost:5040/rickandmorty/favorite/fav/${id}`)
-      .then(({ data }) => {
-        return dispatch({
-          type: REMOVE_FAV,
-          payload: data,
-        });
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.delete(
+        `http://localhost:5040/rickandmorty/favorite/fav/${id}`
+      );
+      return dispatch({
+        type: REMOVE_FAV,
+        payload: data,
       });
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
+
 export function filterGender(gender) {
   return {
     type: FILTER,

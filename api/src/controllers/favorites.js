@@ -8,7 +8,9 @@ const STATUS_ERROR = 404;
 const postFav = function (req, res) {
   const { id, status, name, species, origin, image, gender } = req.body;
 
+  //* Datos persistentes
   if (id === "RELOAD") return res.status(STATUS_OK).json(myFavorites);
+
   if (!id || !name || !image) {
     return res
       .status(STATUS_ERROR)

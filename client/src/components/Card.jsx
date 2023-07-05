@@ -7,13 +7,7 @@ import { useState } from "react";
 import { connect } from "react-redux";
 import { addFav, removeFav } from "../redux/actions";
 
-function Card({
-  char,
-  onClose,
-  myFavorites,
-  removeFav,
-  addFav,
-}) {
+function Card({ char, onClose, myFavorites, removeFav, addFav, inFav }) {
   // obj
   const [isFav, setIsFav] = useState(false);
   console.log(":::::::", myFavorites);
@@ -38,7 +32,6 @@ function Card({
   y despacha la función addFav que recibiste por props, pasándole 
   props como argumento.
 */
-  
 
   useEffect(() => {
     myFavorites.forEach((fav) => {
@@ -56,11 +49,11 @@ function Card({
         ) : (
           <button onClick={handleFavorite}>🤍</button>
         )}
-        <button onClick={() => onClose(id)}>X</button>
+        {inFav ? null : <button onClick={() => onClose(id)}>X</button>}
       </div>
       <div className={style.info}>
         <Link className={style.link} to={`/detail/${id}`}>
-          <h2>{name.slice(0,16)}</h2>
+          <h2>{name.slice(0, 16)}</h2>
           {/* <h2>{status}</h2> */}
           <h2>{species}</h2>
           {/* <h2>{gender}</h2>

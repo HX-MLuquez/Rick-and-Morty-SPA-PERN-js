@@ -8,11 +8,11 @@ import { useSelector } from "react-redux";
 export default function Detail() {
   const { id } = useParams();
   const [character, setCharacter] = useState({});
-  const { characters } = useSelector((s) => s);
+  const { charactersOrigin } = useSelector((s) => s);
   // console.log("--->", id)
   //TODO: MOUNT <-> upDate ID
   useEffect(() => {
-    const char = characters?.find((ch) => ch.id === Number(id));
+    const char = charactersOrigin?.find((ch) => ch.id === Number(id));
     if (char) setCharacter(char);
     else window.alert("No hay personajes con ese ID");
     // return setCharacter({});

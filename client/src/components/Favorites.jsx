@@ -57,7 +57,7 @@ Male, Female, Genderless y unknown.
         <button onClick={() => dispatch(reset())}>Reset</button>
       </nav>
       {myFavorites?.map((char, index) => {
-        return <Card key={char.id} char={char} onClose={onClose} />;
+        return <Card key={char.id} char={char} onClose={onClose} inFav={true} />;
       })}
     </div>
   );

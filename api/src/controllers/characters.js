@@ -29,35 +29,40 @@ const login = function (req, res) {
 Front <- token -> cockies 
 */
 
-const getCharacterId = function (req, res) {
+const getCharacterId = async function (req, res) {
   console.log("in char route");
-  const { id } = req.params;
-  axios
-    .get(`${URL}/${id}`)
-    .then(({ data }) => data)
-    .then((ch) => {
-      const { id, name, gender, species, origin, image, status } = ch;
-      const character = {
-        id,
-        name,
-        gender,
-        species,
-        origin: origin?.name,
-        image,
-        status,
-      };
-      res.status(STATUS_OK).json(character);
-    })
-    .catch((error) => {
-      res.status(STATUS_ERROR).end("character not found");
-    });
+  try {
+    const { id } = req.params;
+    const ch = await axios.get(`${URL}/${id}`);
+    const { name, gender, species, origin, image, status } = ch.data;
+    const character = {
+      id,
+      name,
+      gender,
+      species,
+      origin: origin?.name,
+      image,
+      status,
+    };
+    res.status(STATUS_OK).json(character);
+  } catch (error) {
+    res.status(STATUS_ERROR).end(error);
+  }
 };
 
-const getAllCharacters = function (req, res) {
-  axios.get(`${URL}?page=1`).then((result) => {
-    const characters = result.data?.results;
-    res.status(STATUS_OK).json(characters);
-  });
+// const getAllCharacters = function (req, res) {
+//   axios.get(`${URL}?page=1`).then((result) => {
+//     const characters = result.data?.results;
+//     res.status(STATUS_OK).json(characters);
+//   });
+// };
+const getAllCharacters = async function (req, res) {
+  try {
+    const characters = await axios.get(`${URL}?page=1`);
+    res.status(STATUS_OK).json(characters.data.results);
+  } catch (error) {
+    res.status(404).json({ message: "not found", error: error });
+  }
 };
 
 module.exports = {
