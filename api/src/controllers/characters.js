@@ -7,7 +7,8 @@ const axios = require("axios");
 
 const URL = " https://rickandmortyapi.com/api/character";
 const STATUS_OK = 200;
-const STATUS_ERROR = 404;
+//TODO: TESTING <-> fix status 404 to -> 500
+const STATUS_ERROR = 500;
 
 const EMAIL_USER = "eje@gmail.com";
 const PASSWORD_USER = "@123QWEasd";
@@ -15,12 +16,14 @@ const PASSWORD_USER = "@123QWEasd";
 const login = function (req, res) {
   const { password, email } = req.query;
   if (!password || !email) {
-    return res.status(STATUS_ERROR).end("password or email null");
+    //TODO: TESTING <-> fix error to -> .json({ access: false })
+    return res.status(STATUS_ERROR).json({ access: false });
   }
   if (password === PASSWORD_USER && email === EMAIL_USER) {
     res.status(STATUS_OK).json({ access: true });
   } else {
-    res.status(204).json({ access: false });
+    //TODO: TESTING <-> fix error to -> .json({ access: false })
+    res.status(STATUS_OK).json({ access: false });
   }
 };
 /*
@@ -46,7 +49,8 @@ const getCharacterId = async function (req, res) {
     };
     res.status(STATUS_OK).json(character);
   } catch (error) {
-    res.status(STATUS_ERROR).end(error);
+    //TODO: TESTING <-> fix error to -> .end(error.message)
+    res.status(STATUS_ERROR).end(error.message);
   }
 };
 
@@ -61,7 +65,8 @@ const getAllCharacters = async function (req, res) {
     const characters = await axios.get(`${URL}?page=1`);
     res.status(STATUS_OK).json(characters.data.results);
   } catch (error) {
-    res.status(404).json({ message: "not found", error: error });
+    //TODO: TESTING <-> fix error to -> .end(error.message)
+    res.status(STATUS_ERROR).end(error.message);
   }
 };
 

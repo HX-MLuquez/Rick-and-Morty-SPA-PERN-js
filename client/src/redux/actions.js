@@ -23,6 +23,7 @@ export function searchChar(char) {
 }
 
 export function addChar(char) {
+  char.id = Number(char.id);
   return {
     type: ADD_CHAR,
     payload: char,
@@ -56,12 +57,12 @@ export function removeChar(id) {
     payload: id,
   };
 }
-// http://localhost:5040/rickandmorty/favorite/fav   ${id}
+// http://localhost:5040/rickandmorty/fav   ${id}
 export function addFav(char) {
   return async function (dispatch) {
     try {
       const { data } = await axios.post(
-        `http://localhost:5040/rickandmorty/favorite/fav`,
+        `http://localhost:5040/rickandmorty/fav`,
         char
       );
       return dispatch({
@@ -78,7 +79,7 @@ export function removeFav(id) {
   return async function (dispatch) {
     try {
       const { data } = await axios.delete(
-        `http://localhost:5040/rickandmorty/favorite/fav/${id}`
+        `http://localhost:5040/rickandmorty/fav/${id}`
       );
       return dispatch({
         type: REMOVE_FAV,
@@ -121,6 +122,7 @@ export function next() {
 }
 
 export function createCharacter(character) {
+  character.id = Number(character.id);
   return {
     type: CREATE_CHAR,
     payload: character,

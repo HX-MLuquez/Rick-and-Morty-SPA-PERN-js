@@ -3,7 +3,8 @@
 let myFavorites = [];
 
 const STATUS_OK = 200;
-const STATUS_ERROR = 404;
+//TODO: TESTING <-> fix status 404 to -> 500
+const STATUS_ERROR = 500;
 
 const postFav = function (req, res) {
   const { id, status, name, species, origin, image, gender } = req.body;
