@@ -23,7 +23,7 @@ export function searchChar(char) {
 }
 
 export function addChar(char) {
-  char.id = Number(char.id);
+ 
   return {
     type: ADD_CHAR,
     payload: char,

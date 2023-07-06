@@ -39,7 +39,7 @@ const getCharacterId = async function (req, res) {
     const ch = await axios.get(`${URL}/${id}`);
     const { name, gender, species, origin, image, status } = ch.data;
     const character = {
-      id,
+      id: Number(id),
       name,
       gender,
       species,
