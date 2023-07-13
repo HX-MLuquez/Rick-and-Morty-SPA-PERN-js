@@ -43,7 +43,8 @@ const getCharacterId = async function (req, res) {
       name,
       gender,
       species,
-      origin: origin?.name,
+      //todo: incompatibilidad de manejo de objeto obj
+      origin,
       image,
       status,
     };

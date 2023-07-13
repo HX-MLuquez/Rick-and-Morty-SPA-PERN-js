@@ -1,43 +1,67 @@
 // POST postFav: "/fav"
 // DELETE deleteFav: "/fav/:id"
-let myFavorites = [];
+// let myFavorites = [];
+const { User, Favorite } = require("../DB_connection");
 
 const STATUS_OK = 200;
 //TODO: TESTING <-> fix status 404 to -> 500
 const STATUS_ERROR = 500;
 
-const postFav = function (req, res) {
-  const { id, status, name, species, origin, image, gender } = req.body;
+const postFav = async function (req, res) {
+  try {
+    const { id, status, name, species, origin, image, gender } = req.body;
 
-  //* Datos persistentes
-  if (id === "RELOAD") return res.status(STATUS_OK).json(myFavorites);
+    //* Datos persistentes
+    if (id === "RELOAD") {
+      const favorites = await Favorite.findAll();
+      return res.status(STATUS_OK).json(favorites);
+    }
 
-  if (!id || !name || !image) {
-    return res
-      .status(STATUS_ERROR)
-      .json({ message: "error, not found create fav" });
+    if (!id || !name || !image) {
+      return res
+        .status(STATUS_ERROR)
+        .json({ message: "error, not found create fav" });
+    }
+    const character = {
+      id,
+      status,
+      name,
+      species,
+      origin: origin?.name,
+      image,
+      gender,
+    };
+    console.log(":::::", character);
+    // myFavorites.push(character);
+    const newChar = await Favorite.create(character);
+
+    const favorites = await Favorite.findAll();
+    res.status(STATUS_OK).json(favorites);
+  } catch (error) {
+    res.status(STATUS_ERROR).json({ message: error });
   }
-  const character = {
-    id,
-    status,
-    name,
-    species,
-    origin,
-    image,
-    gender,
-  };
-  myFavorites.push(character);
-  res.status(STATUS_OK).json(myFavorites);
 };
 
-const deleteFav = function (req, res) {
-  const { id } = req.params;
-  if (!id) {
-    return res.status(STATUS_ERROR).json({ message: "id null" });
+const deleteFav = async function (req, res) {
+  try {
+    const { id } = req.params;
+    const char = await Favorite.findByPk(id);
+    if (char) {
+      await Favorite.destroy({
+        where: {
+          id,
+        },
+      });
+      const favorites = await Favorite.findAll();
+      res.status(STATUS_OK).json(favorites);
+    } else {
+      res
+        .status(STATUS_ERROR)
+        .json({ message: "el character ya ha sido eliminado" });
+    }
+  } catch (error) {
+    res.status(STATUS_ERROR).json({ message: error });
   }
-  const newFavorites = myFavorites.filter((ch) => ch.id !== Number(id));
-  myFavorites = newFavorites;
-  res.status(STATUS_OK).json(myFavorites);
 };
 
 module.exports = {
