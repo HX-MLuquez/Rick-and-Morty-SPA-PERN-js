@@ -50,8 +50,13 @@ export default function CreateCharacter() {
         `Ese id ${character.id} de character ya existe y es el character ${character.name}`
       );
     }
+    //todo: validate al momento de crear
+    // errorsInputs -> lo que retorna validateInputs <- {}
+    // setErrorsInputs(validateInputs(inputs))
+
     inputs.id = Number(inputs.id)
     dispatch(createCharacter(inputs));
+    // REDUX -> ah es método tipo dispatch  dispatch({type:"UHUU"})
     alert("Character creado");
     setInputs({
       id: "",
@@ -76,6 +81,9 @@ export default function CreateCharacter() {
           onChange={handleChange}
           type="text"
         />
+        {/* {
+          setErrorsInputs.id ? <p></p>:null
+        } */}
         <label>Gender:</label>
         <input
           key="gender"

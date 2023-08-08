@@ -23,7 +23,6 @@ export function searchChar(char) {
 }
 
 export function addChar(char) {
- 
   return {
     type: ADD_CHAR,
     payload: char,
@@ -59,21 +58,25 @@ export function removeChar(id) {
 }
 // http://localhost:5040/rickandmorty/fav   ${id}
 export function addFav(char) {
+  // ? return {}  NO es f() <- redux lo invoca f(dispatch)
   return async function (dispatch) {
     try {
       const { data } = await axios.post(
         `http://localhost:5040/rickandmorty/fav`,
         char
-      );
+      ); // creamos en nuestra DB
+      // Algoma más -> dispatch definitivo
       return dispatch({
         type: ADD_FAV,
-        payload: data,
+        payload: data, // anexamos en nuestro STORE
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      return Error(error);
     }
   };
 }
+//* ASINCRÓNICO siempre debemos manejar el error
 
 export function removeFav(id) {
   return async function (dispatch) {
@@ -123,9 +126,20 @@ export function next() {
 
 export function createCharacter(character) {
   character.id = Number(character.id);
+
   return {
     type: CREATE_CHAR,
     payload: character,
+  };
+}
+
+export function createCharacterCONDB(character) {
+  character.id = Number(character.id);
+  return async function (dispatch) {
+    // lo envía a nuestra db
+    await axios.post("url:que-guarda-esto-en-nuestra-db", character);
+    // en esta otra línea lo envía a nuestro store
+    dispatch({ type: CREATE_CHAR, payload: character });
   };
 }
 

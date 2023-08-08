@@ -23,7 +23,7 @@ const initialState = {
   myFavorites: [], // acá va a mirar el component myFavorites
   numPage: 1,
 };
-
+// redux -> reducer(state, {type:"UHUU"})
 export default function reducer(state = initialState, { type, payload }) {
   switch (type) {
     case SEARCH_CHAR:

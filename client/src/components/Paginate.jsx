@@ -5,6 +5,7 @@ import style from "../styles/Paginate.module.css";
 
 export default function Paginate({ numPage, cantPage }) {
   const dispatch = useDispatch();
+  console.log("#####num page in paginate", numPage)
   return (
     <div className={style.container}>
       <div className={style.paginate}>
@@ -20,7 +21,7 @@ export default function Paginate({ numPage, cantPage }) {
           </>
         )}
         <h3>{numPage}</h3>
-        {numPage >= cantPage ? (
+        {numPage > cantPage ? (
           <>
             <div></div>
             <div></div>

@@ -34,6 +34,8 @@ const postFav = async function (req, res) {
     console.log(":::::", character);
     // myFavorites.push(character);
     const newChar = await Favorite.create(character);
+//! RELACION
+// await newChar.setTemperament(1)
 
     const favorites = await Favorite.findAll();
     res.status(STATUS_OK).json(favorites);
